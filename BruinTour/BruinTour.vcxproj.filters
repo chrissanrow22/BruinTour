@@ -14,4 +14,47 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="base_classes.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geopoint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geotools.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stops.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tourcmd.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geodb.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="router.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tour_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HashMap.h">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="geodb.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="router.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="tour_generator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>
 </Project>

@@ -15,9 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="base_classes.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="geopoint.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -37,6 +34,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="tour_generator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="base_classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

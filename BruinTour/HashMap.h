@@ -1,6 +1,7 @@
 #include <string>
 #include <vector>
 #include <list>
+#include <functional>
 
 template <typename T>
 class HashMap
@@ -28,17 +29,32 @@ public:
 	T& operator[](const std::string& key);
 private:
 	int m_numAssociations;
+	double m_maxLoadFactor;
 	vector<list<T>*> m_buckets;
+
+	// Returns whether adding a new association would cause the hash table to exceed
+	// the maximum load factor
+	bool exceedsMaxLoadFactor() const;
+
+	int hashItem(const std::string key) const;
 };
 
 template <typename T>
-HashMap<T>::HashMap(double max_load) {
-
+HashMap<T>::HashMap(double max_load)
+//Initialize hashmap with 10 buckets and 0 associations
+	: m_buckets(new vector<list<T>*>(10, nullptr))
+{
+	m_maxLoadFactor = max_load;
 }
 
 template <typename T>
 HashMap<T>::~HashMap() {
-
+	//Iterate over vector and delete dynamically allocated linked lists
+	for (int i = 0; i < m_buckets.size(); i++) {
+		if (m_buckets[i] != nullptr) {
+			delete m_buckets[i];
+		}
+	}
 }
 
 template <typename T>
@@ -53,10 +69,23 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 
 template <typename T>
 T* HashMap<T>::find(const std::string& key) const {
-
+	if(m_buckets[])
 }
 
 template <typename T>
 T& HashMap<T>::operator[](const std::string& key) {
 
+}
+
+//HELPER FUNCTIONS
+
+template <typename T>
+bool HashMap<T>::exceedsMaxLoadFactor() const {
+	double resultantLoadFactor = (m_numAssociations + 1) / m_buckets.size();
+	return resultantLoadFactor > m_maxLoadFactor;
+}
+
+template <typename T>
+int HashMap<T>::hashItem(const std::string key) const {
+	return (std::hash<string>()(key)) % m_buckets.size();
 }

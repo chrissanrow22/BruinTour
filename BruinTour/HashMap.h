@@ -28,9 +28,15 @@ public:
 	// reference to the newly created value in the map.  
 	T& operator[](const std::string& key);
 private:
+	struct Node {
+		std::string m_key;
+		T m_value;
+		Node* next;
+	};
+
 	int m_numAssociations;
 	double m_maxLoadFactor;
-	vector<list<T>*> m_buckets;
+	std::vector<Node*> m_buckets;
 
 	// Returns whether adding a new association would cause the hash table to exceed
 	// the maximum load factor
@@ -42,9 +48,8 @@ private:
 template <typename T>
 HashMap<T>::HashMap(double max_load)
 //Initialize hashmap with 10 buckets and 0 associations
-	: m_buckets(new vector<list<T>*>(10, nullptr))
+	: m_buckets(std::vector<Node*>(10, nullptr)), m_numAssociations(0), m_maxLoadFactor(max_load)
 {
-	m_maxLoadFactor = max_load;
 }
 
 template <typename T>
@@ -64,17 +69,59 @@ int HashMap<T>::size() const {
 
 template <typename T>
 void HashMap<T>::insert(const std::string& key, const T& value) {
+	int keyHashVal = hashItem(key);
+	//search for string hash in associated linked list in vector, and update
+	//if found. if not found insert new key value pair into vector
 
+	// traverse linked list associated with hash to find key
+	Node* p = m_buckets[keyHashVal];
+	while (p != nullptr && p->m_key != key) {
+		p = p->next;
+	}
+	//key does not yet have an association
+	if (p == nullptr) {
+		p = new Node;
+		p->m_key = key;
+	}
+	//update / set value
+	p->m_value = value;
+
+	m_numAssociations++;
 }
 
 template <typename T>
 T* HashMap<T>::find(const std::string& key) const {
-	if(m_buckets[])
+	int keyHashVal = hashItem(key);
+
+	Node* p = m_buckets[keyHashVal];
+	while (p != nullptr && p->m_key != key) {
+		p = p->next;
+	}
+	// key was found
+	if (p != nullptr) {
+		return p->m_value;
+	}
+	// key was not found
+	return nullptr;
 }
 
 template <typename T>
 T& HashMap<T>::operator[](const std::string& key) {
+	int keyHashVal = hashItem(key);
 
+	Node* p = m_buckets[keyHashVal];
+	while (p != nullptr && p->m_key != key) {
+		p = p->next;
+	}
+	// key was found
+	if (p != nullptr) {
+		return p->m_value;
+	}
+	// key was not found
+	p = new Node;
+	p->m_key = key;
+	m_numAssociations++;
+	return p;
 }
 
 //HELPER FUNCTIONS
@@ -87,5 +134,5 @@ bool HashMap<T>::exceedsMaxLoadFactor() const {
 
 template <typename T>
 int HashMap<T>::hashItem(const std::string key) const {
-	return (std::hash<string>()(key)) % m_buckets.size();
+	return (std::hash<std::string>()(key)) % m_buckets.size();
 }

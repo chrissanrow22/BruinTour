@@ -7,11 +7,12 @@
 #include "geodb.h"
 #include "router.h"
 #include "stops.h"
+#include "tourcmd.h"
 #include "tour_generator.h"
 
 using namespace std;
 
-void print_tour(vector<TourCommand> &tcs)
+void print_tour(vector<TourCommand>& tcs)
 {
     double total_dist = 0;
     std::string direction;
@@ -21,7 +22,6 @@ void print_tour(vector<TourCommand> &tcs)
 
     for (size_t i = 0; i < tcs.size(); ++i)
     {
-        // cout << tcs[i] << endl;
         if (tcs[i].get_command_type() == TourCommand::commentary)
         {
             cout << "Welcome to " << tcs[i].get_poi() << "!\n";
@@ -37,8 +37,8 @@ void print_tour(vector<TourCommand> &tcs)
             if (direction.empty())
                 direction = tcs[i].get_direction();
             street_distance += tcs[i].get_distance();
-            if (i < tcs.size() - 1 && tcs[i + 1].get_command_type() == TourCommand::proceed 
-                && tcs[i + 1].get_street() == tcs[i].get_street() && tcs[i].get_street() != GeoDatabase::kPathString)
+            if (i+1 < tcs.size() && tcs[i+1].get_command_type() == TourCommand::proceed 
+                && tcs[i+1].get_street() == tcs[i].get_street() && tcs[i].get_street() != "a path")
             {
                 continue;
             }
@@ -57,15 +57,15 @@ int main(int argc, char *argv[])
 {
     if (argc != 3)
     {
-        cout << "usage: BruinNav mapdata.txt stops.txt\n";
-        return -1;
+        cout << "usage: BruinTour mapdata.txt stops.txt\n";
+        return 1;
     }
 
     GeoDatabase geodb;
     if (!geodb.load(argv[1]))
     {
         cout << "Unable to load map data: " << argv[1] << endl;
-        return -1;
+        return 1;
     }
 
     Router router(geodb);
@@ -75,12 +75,11 @@ int main(int argc, char *argv[])
     if (!stops.load(argv[2]))
     {
         cout << "Unable to load tour data: " << argv[2] << endl;
-        return -1;
+        return 1;
     }
 
-    std::cout << "\nRouting...\n\n";
+    std::cout << "Routing...\n\n";
 
-    string error;
     vector<TourCommand> tcs = tg.generate_tour(stops);
     if (tcs.empty())
         cout << "Unable to generate tour!\n";

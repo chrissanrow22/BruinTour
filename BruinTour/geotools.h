@@ -2,6 +2,8 @@
 #define GEOTOOLS_H
 
 // STUDENTS: YOU MUST NOT MODIFY ANY CODE IN THIS FILE
+#include <iostream>
+#include <sstream>
 #include <iomanip>
 
 #include "geopoint.h"

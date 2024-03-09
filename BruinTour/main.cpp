@@ -1,3 +1,4 @@
+/*
 #include <cstdio>
 #include <iomanip>
 #include <iostream>
@@ -85,4 +86,23 @@ int main(int argc, char *argv[])
         cout << "Unable to generate tour!\n";
     else
         print_tour(tcs);
+}
+*/
+
+// TESTING HASHMAP
+
+#include <iostream>
+#include <cassert>
+#include "HashMap.h"
+using namespace std;
+
+int main() {
+    HashMap<int> testHashMap;
+    testHashMap.insert("Chris", 33);
+    testHashMap.insert("Caitlan", 22);
+    assert(testHashMap.size() == 2);
+    testHashMap["Chris"] = 22;
+    assert(testHashMap.size() == 2 && testHashMap["Chris"] == 22);
+    testHashMap["Jul"] = 77;
+    assert(testHashMap.size() == 3 && testHashMap["Jul"] == 77);
 }

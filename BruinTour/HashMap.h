@@ -73,7 +73,17 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 	//search for string hash in associated linked list in vector, and update
 	//if found. if not found insert new key value pair into vector
 
-	// traverse linked list associated with hash to find key
+	//if there is an existing association for that hash value
+	//check if the key already exists in the map
+	if (m_buckets[keyHashVal] == nullptr) {
+		//allocate new node
+		m_buckets[keyHashVal] = new Node;
+		m_buckets[keyHashVal]->m_key = key;
+		m_buckets[keyHashVal]->m_value = value;
+		m_numAssociations++;
+		return;
+	}
+	// if there is an association, traverse linked list associated with hash to find key
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
 		p = p->next;
@@ -92,7 +102,6 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 template <typename T>
 T* HashMap<T>::find(const std::string& key) const {
 	int keyHashVal = hashItem(key);
-
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
 		p = p->next;
@@ -109,6 +118,17 @@ template <typename T>
 T& HashMap<T>::operator[](const std::string& key) {
 	int keyHashVal = hashItem(key);
 
+	//if no association is already made with that hash value:
+	if (m_buckets[keyHashVal] == nullptr) {
+		//allocate new node
+		m_buckets[keyHashVal] = new Node;
+		m_buckets[keyHashVal]->m_key = key;
+		m_numAssociations++;
+		return m_buckets[keyHashVal]->m_value;
+	}
+
+	//if there is an existing association for that hash value
+	//check if the key already exists in the map
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
 		p = p->next;
@@ -121,7 +141,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 	p = new Node;
 	p->m_key = key;
 	m_numAssociations++;
-	return p;
+	return p->m_value;
 }
 
 //HELPER FUNCTIONS

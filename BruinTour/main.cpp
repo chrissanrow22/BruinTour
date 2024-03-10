@@ -105,4 +105,14 @@ int main() {
     assert(testHashMap.size() == 2 && testHashMap["Chris"] == 22);
     testHashMap["Jul"] = 77;
     assert(testHashMap.size() == 3 && testHashMap["Jul"] == 77);
+
+    //insert items until load factor is reached
+    testHashMap.insert("trash", 11);
+    testHashMap.insert("thirtiethfloor", 30);
+    testHashMap.insert("Waterfall", 3);
+    testHashMap.insert("victim", 233);
+    testHashMap.insert("westernunion", 2);
+    testHashMap.insert("thevoid", 331);
+    testHashMap.insert("acidrain", 224);
+    testHashMap.insert("YOULOSE", 237);
 }

@@ -131,6 +131,7 @@
     <ClInclude Include="geodb.h" />
     <ClInclude Include="geopoint.h" />
     <ClInclude Include="geotools.h" />
+    <ClInclude Include="HashMap.h" />
     <ClInclude Include="router.h" />
     <ClInclude Include="stops.h" />
     <ClInclude Include="tourcmd.h" />
@@ -139,7 +140,6 @@
   <ItemGroup>
     <ClCompile Include="geodb.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="HashMap.h" />
     <ClCompile Include="router.cpp" />
     <ClCompile Include="tour_generator.cpp" />
   </ItemGroup>

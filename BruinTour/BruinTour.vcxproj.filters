@@ -39,13 +39,13 @@
     <ClInclude Include="base_classes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="HashMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HashMap.h">
-      <Filter>Header Files</Filter>
     </ClCompile>
     <ClCompile Include="geodb.cpp">
       <Filter>Source Files</Filter>

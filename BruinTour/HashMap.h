@@ -27,11 +27,16 @@ public:
 	// the hashmap and map it to the default value of type T. Then it will return a 
 	// reference to the newly created value in the map.  
 	T& operator[](const std::string& key);
+
+	//FIXME: is this the correct way to disallow copies or assingments
+	HashMap(const HashMap&) = delete;
+	HashMap& operator=(const HashMap&) = delete;
+
 private:
 	struct Node {
 		std::string m_key;
 		T m_value;
-		Node* next;
+		Node* m_next;
 	};
 
 	int m_numAssociations;
@@ -42,7 +47,11 @@ private:
 	// the maximum load factor
 	bool exceedsMaxLoadFactor() const;
 
+	//hashing functions
+	//return the hash value for the given string
 	int hashItem(const std::string key) const;
+	//rehash items in bucket and include new pairing
+	void rehashToNewHashMap(const std::string& key, const T& value);
 };
 
 template <typename T>
@@ -76,8 +85,9 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 	//if there is an existing association for that hash value
 	//check if the key already exists in the map
 	if (m_buckets[keyHashVal] == nullptr) {
-		//allocate new node
+		//no association -> allocate new node
 		m_buckets[keyHashVal] = new Node;
+		m_buckets[keyHashVal]->m_next = nullptr;
 		m_buckets[keyHashVal]->m_key = key;
 		m_buckets[keyHashVal]->m_value = value;
 		m_numAssociations++;
@@ -122,8 +132,11 @@ T& HashMap<T>::operator[](const std::string& key) {
 	if (m_buckets[keyHashVal] == nullptr) {
 		//allocate new node
 		m_buckets[keyHashVal] = new Node;
+		m_buckets[keyHashVal]->m_next = nullptr;
 		m_buckets[keyHashVal]->m_key = key;
 		m_numAssociations++;
+		//default construct value
+		m_buckets[keyHashVal]->m_value = T();
 		return m_buckets[keyHashVal]->m_value;
 	}
 
@@ -139,7 +152,10 @@ T& HashMap<T>::operator[](const std::string& key) {
 	}
 	// key was not found
 	p = new Node;
+	p->m_value = nullptr;
 	p->m_key = key;
+	//default construct value
+	p->m_value = T();
 	m_numAssociations++;
 	return p->m_value;
 }
@@ -155,4 +171,37 @@ bool HashMap<T>::exceedsMaxLoadFactor() const {
 template <typename T>
 int HashMap<T>::hashItem(const std::string key) const {
 	return (std::hash<std::string>()(key)) % m_buckets.size();
+}
+
+template <typename T>
+void HashMap<T>::rehashToNewHashMap(const std::string& key, const T& value) {
+	//create new internal hash map with double the current number of buckets
+	std::vector<Node*> newInternalHashMap(m_buckets.size() * 2, nullptr);
+	//rehash all current items nad insert into new internal hashmap
+	for (int i = 0; i < m_buckets.size(); i++) {
+		//get key and value of current pair
+		int currKey = m_buckets[i]->m_key;
+		T currVal = m_buckets[i]->m_value;
+		//obtain hash value from current key
+		int currHash = hashItem(m_buckets[i]->m_key);
+		//iterate over the corresponding bucket to find empty space to put pair
+		Node* p = m_buckets + currHash;
+		while (p != nullptr) {
+			p = p->next;
+		}
+		//insert pair into empty spot in internal hash map
+		p = new Node;
+		p->m_next = nullptr;
+		p->m_key = currKey;
+		p->m_value = currVal;
+	}
+	//free memory of smaller hash map
+	//FIXME: not sure if this is right
+	for (int i = 0; i < m_buckets.size(); i++) {
+		delete m_buckets[i];
+	}
+	//set m_buckets to newly created hashmap
+	m_buckets = newInternalHashMap;
+	//hash and insert newly paired item
+	insert(key, value);
 }

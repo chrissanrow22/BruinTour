@@ -1,11 +1,1 @@
-﻿  main.cpp
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(154,41): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(153,55): message : while compiling class template member function 'int HashMap<int>::hashItem(const std::string) const'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(72,17): message : see the first reference to 'HashMap<int>::hashItem' in 'HashMap<int>::insert'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(101,23): message : see the first reference to 'HashMap<int>::insert' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(51,2): message : while compiling class template member function 'HashMap<int>::HashMap(double)'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(100,18): message : see the first reference to 'HashMap<int>::HashMap' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(100,18): message : see reference to class template instantiation 'HashMap<int>' being compiled
-  HashMap.h
-  Generating Code...
-  BruinTour.vcxproj -> C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\x64\Debug\BruinTour.exe
+﻿  BruinTour.vcxproj -> C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\x64\Debug\BruinTour.exe

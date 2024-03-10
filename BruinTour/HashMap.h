@@ -51,7 +51,7 @@ private:
 	//return the hash value for the given string
 	int hashItem(const std::string key) const;
 	//rehash items in bucket and include new pairing
-	void rehashToNewHashMap(const std::string& key, const T& value);
+	void rehashToNewHashMap();
 };
 
 template <typename T>
@@ -96,17 +96,17 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 	// if there is an association, traverse linked list associated with hash to find key
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
-		p = p->next;
+		p = p->m_next;
 	}
-	//key does not yet have an association
+	//key does not yet have an association -> allocate new node
 	if (p == nullptr) {
 		p = new Node;
+		p->m_next = nullptr;
 		p->m_key = key;
+		m_numAssociations++;
 	}
 	//update / set value
 	p->m_value = value;
-
-	m_numAssociations++;
 }
 
 template <typename T>
@@ -144,7 +144,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 	//check if the key already exists in the map
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
-		p = p->next;
+		p = p->m_next;
 	}
 	// key was found
 	if (p != nullptr) {
@@ -152,7 +152,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 	}
 	// key was not found
 	p = new Node;
-	p->m_value = nullptr;
+	p->m_next = nullptr;
 	p->m_key = key;
 	//default construct value
 	p->m_value = T();
@@ -174,7 +174,7 @@ int HashMap<T>::hashItem(const std::string key) const {
 }
 
 template <typename T>
-void HashMap<T>::rehashToNewHashMap(const std::string& key, const T& value) {
+void HashMap<T>::rehashToNewHashMap() {
 	//create new internal hash map with double the current number of buckets
 	std::vector<Node*> newInternalHashMap(m_buckets.size() * 2, nullptr);
 	//rehash all current items nad insert into new internal hashmap
@@ -202,6 +202,4 @@ void HashMap<T>::rehashToNewHashMap(const std::string& key, const T& value) {
 	}
 	//set m_buckets to newly created hashmap
 	m_buckets = newInternalHashMap;
-	//hash and insert newly paired item
-	insert(key, value);
 }

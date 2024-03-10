@@ -106,7 +106,7 @@ int main() {
     testHashMap["Jul"] = 77;
     assert(testHashMap.size() == 3 && testHashMap["Jul"] == 77);
 
-    //insert items until load factor is reached
+    //insert items until load factor is reached (i.e. add 18 items)
     testHashMap.insert("trash", 11);
     testHashMap.insert("thirtiethfloor", 30);
     testHashMap.insert("Waterfall", 3);
@@ -115,4 +115,11 @@ int main() {
     testHashMap.insert("thevoid", 331);
     testHashMap.insert("acidrain", 224);
     testHashMap.insert("YOULOSE", 237);
+    testHashMap.insert("someday", 422);
+    testHashMap.insert("had enough", 228);
+    testHashMap.insert("whitenoise", 315);
+    testHashMap.insert("Jspretend", 344);
+    testHashMap.insert("home", 337);
+    testHashMap.insert("MG1", 46);
+    testHashMap.insert("IonicFunk", 434);
 }

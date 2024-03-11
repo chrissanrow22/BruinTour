@@ -15,18 +15,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="geopoint.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="geotools.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="stops.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="tourcmd.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="geodb.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -40,6 +28,21 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="HashMap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="scaffoldhashmap.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geotools.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="geopoint.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="stops.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tourcmd.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

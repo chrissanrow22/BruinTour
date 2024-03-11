@@ -1,3 +1,4 @@
+/*
 #include <string>
 #include <vector>
 #include <list>
@@ -259,3 +260,4 @@ void HashMap<T>::rehashToNewHashMap() {
 	//set m_buckets to newly created hashmap
 	m_buckets = newInternalHashMap;
 }
+*/

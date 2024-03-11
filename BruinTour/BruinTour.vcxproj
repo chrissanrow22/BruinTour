@@ -133,6 +133,7 @@
     <ClInclude Include="geotools.h" />
     <ClInclude Include="HashMap.h" />
     <ClInclude Include="router.h" />
+    <ClInclude Include="scaffoldhashmap.h" />
     <ClInclude Include="stops.h" />
     <ClInclude Include="tourcmd.h" />
     <ClInclude Include="tour_generator.h" />

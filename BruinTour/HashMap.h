@@ -85,34 +85,40 @@ void HashMap<T>::insert(const std::string& key, const T& value) {
 	//if there is an existing association for that hash value
 	//check if the key already exists in the map
 	if (m_buckets[keyHashVal] == nullptr) {
-		if (exceedsMaxLoadFactor()) {
-			rehashToNewHashMap();
-		}
 		//no association -> allocate new node
 		m_buckets[keyHashVal] = new Node;
 		m_buckets[keyHashVal]->m_next = nullptr;
 		m_buckets[keyHashVal]->m_key = key;
 		m_buckets[keyHashVal]->m_value = value;
 		m_numAssociations++;
-		return;
-	}
-	// if there is an association, traverse linked list associated with hash to find key
-	Node* p = m_buckets[keyHashVal];
-	while (p != nullptr && p->m_key != key) {
-		p = p->m_next;
-	}
-	//key does not yet have an association -> allocate new node
-	if (p == nullptr) {
 		if (exceedsMaxLoadFactor()) {
 			rehashToNewHashMap();
 		}
-		p = new Node;
+		return;
+	}
+
+	// if there is an association, traverse linked list associated with hash to find key
+	Node* p = m_buckets[keyHashVal];
+	while (p->m_next != nullptr && p->m_key != key) {
+		p = p->m_next;
+	}
+
+	//key does not yet have an association -> allocate new node
+	if (p->m_key != key) {
+		//allocate new node for key
+		p->m_next = new Node;
+		p = p->m_next;
+		//set node's next to nullptr since it's end of list
 		p->m_next = nullptr;
+		//update next node's key
 		p->m_key = key;
 		m_numAssociations++;
 	}
 	//update / set value
 	p->m_value = value;
+	if (exceedsMaxLoadFactor()) {
+		rehashToNewHashMap();
+	}
 }
 
 template <typename T>
@@ -136,39 +142,45 @@ T& HashMap<T>::operator[](const std::string& key) {
 
 	//if no association is already made with that hash value:
 	if (m_buckets[keyHashVal] == nullptr) {
-		if (exceedsMaxLoadFactor()) {
-			rehashToNewHashMap();
-		}
 		//allocate new node
 		m_buckets[keyHashVal] = new Node;
 		m_buckets[keyHashVal]->m_next = nullptr;
 		m_buckets[keyHashVal]->m_key = key;
-		m_numAssociations++;
 		//default construct value
 		m_buckets[keyHashVal]->m_value = T();
+
+		m_numAssociations++;
+		if (exceedsMaxLoadFactor()) {
+			rehashToNewHashMap();
+		}
 		return m_buckets[keyHashVal]->m_value;
 	}
 
 	//if there is an existing association for that hash value
 	//check if the key already exists in the map
 	Node* p = m_buckets[keyHashVal];
-	while (p != nullptr && p->m_key != key) {
+	while (p->m_next != nullptr && p->m_key != key) {
 		p = p->m_next;
 	}
-	// key was found
-	if (p != nullptr) {
-		return p->m_value;
+
+	//key does not yet have an association -> allocate new node
+	if (p->m_key != key) {
+		//allocate new node for key
+		p->m_next = new Node;
+		p = p->m_next;
+		//set node's next to nullptr since it's end of list
+		p->m_next = nullptr;
+		//update next node's key
+		p->m_key = key;
+		//default construct value
+		p->m_value = T();
+		m_numAssociations++;
+
+		if (exceedsMaxLoadFactor()) {
+			rehashToNewHashMap();
+		}
 	}
-	if (exceedsMaxLoadFactor()) {
-		rehashToNewHashMap();
-	}
-	// key was not found
-	p = new Node;
-	p->m_next = nullptr;
-	p->m_key = key;
-	//default construct value
-	p->m_value = T();
-	m_numAssociations++;
+	
 	return p->m_value;
 }
 
@@ -176,7 +188,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 
 template <typename T>
 bool HashMap<T>::exceedsMaxLoadFactor() const {
-	unsigned int resultantLoadFactor = (m_numAssociations + 1) / m_buckets.size();
+	unsigned int resultantLoadFactor = m_numAssociations / m_buckets.size();
 	return resultantLoadFactor > m_maxLoadFactor;
 }
 
@@ -198,34 +210,45 @@ void HashMap<T>::rehashToNewHashMap() {
 			continue;
 		}
 
-		//get key and value of current pair
-		std::string currKey = m_buckets[i]->m_key;
-		T currVal = m_buckets[i]->m_value;
-		//obtain hash value from current key
-		int currHash = hashItem(m_buckets[i]->m_key, newSize);
-
-		//if no association is already made with that hash value:
-		if (newInternalHashMap[currHash] == nullptr) {
-			//allocate new node
-			newInternalHashMap[currHash] = new Node;
-			newInternalHashMap[currHash]->m_next = nullptr;
-			newInternalHashMap[currHash]->m_key = currKey;
-			newInternalHashMap[currHash]->m_value = currVal;
-			continue;
-		}
-
-		//otherwise, iterate over the corresponding bucket to find empty space to put pair
-
-		Node* p = newInternalHashMap[currHash];
+		//iterate over linked list of current bucket
+		Node* p = m_buckets[i];
 		while (p != nullptr) {
+			//get key and value of current pair
+			std::string currKey = p->m_key;
+			T currVal = p->m_value;
+			//obtain hash value from current key
+			int currHash = hashItem(p->m_key, newSize);
+
+			//if no association is already made with that hash value:
+			if (newInternalHashMap[currHash] == nullptr) {
+				//allocate new node
+				newInternalHashMap[currHash] = new Node;
+				newInternalHashMap[currHash]->m_next = nullptr;
+				newInternalHashMap[currHash]->m_key = currKey;
+				newInternalHashMap[currHash]->m_value = currVal;
+
+				//proceed to next node in current linked list
+				p = p->m_next;
+				continue;
+			}
+
+			//otherwise, iterate over the corresponding bucket to find empty space to put pair
+
+			Node* internalP = newInternalHashMap[currHash];
+			while (internalP->m_next != nullptr) {
+				internalP = internalP->m_next;
+			}
+
+			//insert pair into empty spot in internal hash map
+			internalP->m_next = new Node;
+			internalP = internalP->m_next;
+			internalP->m_next = nullptr;
+			internalP->m_key = currKey;
+			internalP->m_value = currVal;
+
+			//proceed to next node in current linked list
 			p = p->m_next;
 		}
-
-		//insert pair into empty spot in internal hash map
-		p = new Node;
-		p->m_next = nullptr;
-		p->m_key = currKey;
-		p->m_value = currVal;
 	}
 
 	//free memory of smaller hash map

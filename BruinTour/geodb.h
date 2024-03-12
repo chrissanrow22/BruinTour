@@ -2,7 +2,9 @@
 #include <fstream>
 #include <sstream>
 #include <vector>
+#include <stack>
 
+#include "geotools.h"
 #include "base_classes.h"
 #include "geopoint.h"
 #include "scaffoldhashmap.h"

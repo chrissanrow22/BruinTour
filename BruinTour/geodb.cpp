@@ -1,5 +1,4 @@
 #include "geodb.h"
-#include <stack>
 using namespace std;
 
 GeoDatabase::GeoDatabase() {
@@ -21,35 +20,52 @@ bool GeoDatabase::load(const std::string& map_data_file){
 
 	//read each line in mapdata
 	string line;
-	while (getline(infile, line)) {
-		istringstream iss(line);
-		string name;
-		//reset coords
-		double coords[4] = { 0, 0, 0, 0 };
-		int numPois = 0;
+	istringstream iss(line);
+	string name;
+	double coords[4];
+	int numPois = 0;
+	GeoPoint segmentMidpoint;
 
+	while (getline(infile, line)) {
 		//LINE 1
 		//try to read a name from the file
 		if ((iss >> name)) {
-			continue;
+			if (!streetStack.empty()) {
+				//remove previous street to keep size of stack low
+				streetStack.pop();
+			}
+			streetStack.push(name);
 		}
 		//LINE 2
 		else if ((iss >> coords[0] >> coords[1] >> coords[2] >> coords[3])) {
-			continue;
+			//FIXME: is this allowable?
+			GeoPoint streetPoint1(to_string(coords[0]), to_string(coords[1]));
+			GeoPoint streetPoint2(to_string(coords[2]), to_string(coords[3]));
+			
+			//associate the street name with its start and end coords
+			vector<GeoPoint> coords;
+			coords.push_back(streetPoint1);
+			coords.push_back(streetPoint2);
+
+			m_streetSegments.insert(streetStack.top(), coords);
 		}
 		//LINE 3
 		else if ((iss >> numPois)) {
-			continue;
+			if (numPois > 0) {
+				GeoPoint streetPoint1(to_string(coords[0]), to_string(coords[1]));
+				GeoPoint streetPoint2(to_string(coords[2]), to_string(coords[3]));
+				//compute midpoint
+				segmentMidpoint = midpoint(streetPoint1, streetPoint2);
+
+				//create bidirectional connection b/w midpoint and starting positions
+			}
 		}
 		//LINE P
 		else if ((iss >> name >> coords[0] >> coords[1])) {
 			GeoPoint poi(to_string(coords[0]), to_string(coords[1])); //FIXME: is this allowable?
 			m_pois.insert(name, poi);
-			//compute midpoint
-
 			//current street is given by top of streetStack
 			string currStreet = streetStack.top();
-			continue;
 		}
 		else {
 			//badly formatted line (SHOULD NEVER OCCUR)

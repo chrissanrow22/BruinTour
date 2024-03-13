@@ -166,5 +166,4 @@ int main() {
 
 
     //TESTING GET CONNECTED POINTS
-
 }

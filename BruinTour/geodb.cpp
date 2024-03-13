@@ -16,7 +16,6 @@ bool GeoDatabase::load(const std::string& map_data_file){
 		return false;
 	}
 
-
 	//read each line in mapdata
 	string line;
 	//name of poi

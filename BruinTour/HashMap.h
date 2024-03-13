@@ -183,6 +183,15 @@ T& HashMap<T>::operator[](const std::string& key) {
 	}
 	
 	return p->m_value;
+
+	//CORRECT VERSION
+
+	T* val = find(key);
+	if(find(key) == nullptr){
+		insert(key, T());
+		val = find(key);
+	}
+	return val;
 }
 
 //HELPER FUNCTIONS

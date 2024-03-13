@@ -1,27 +1,3 @@
-﻿  main.cpp
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(81,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(80,65): message : while compiling class template member function 'void HashMap<int>::insert(const std::string &,const T &)'
-          with
-          [
-              T=int
-          ]
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(101,23): message : see the first reference to 'HashMap<int>::insert' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(100,18): message : see reference to class template instantiation 'HashMap<int>' being compiled
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(141,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(140,51): message : while compiling class template member function 'T &HashMap<T>::operator [](const std::string &)'
-          with
-          [
-              T=int
-          ]
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(104,26): message : see the first reference to 'HashMap<int>::operator []' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(191,35): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(190,47): message : while compiling class template member function 'bool HashMap<int>::exceedsMaxLoadFactor(void) const'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(94,3): message : see the first reference to 'HashMap<int>::exceedsMaxLoadFactor' in 'HashMap<int>::insert'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(101,23): message : see the first reference to 'HashMap<int>::insert' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(60,2): message : while compiling class template member function 'HashMap<int>::HashMap(double)'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(100,18): message : see the first reference to 'HashMap<int>::HashMap' in 'main'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(202,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(201,39): message : while compiling class template member function 'void HashMap<int>::rehashToNewHashMap(void)'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(95,22): message : see the first reference to 'HashMap<int>::rehashToNewHashMap' in 'HashMap<int>::insert'
-C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\main.cpp(101,23): message : see the first reference to 'HashMap<int>::insert' in 'main'
+﻿  geodb.cpp
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\stops.h(32,45): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
   BruinTour.vcxproj -> C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\x64\Debug\BruinTour.exe

@@ -91,6 +91,7 @@ int main(int argc, char *argv[])
 
 // TESTING HASHMAP
 
+/*
 #include <iostream>
 #include <cassert>
 #include "HashMap.h"
@@ -124,4 +125,46 @@ int main() {
     testHashMap.insert("home", 337);
     testHashMap.insert("MG1", 46);
     testHashMap.insert("IonicFunk", 434);
+}
+*/
+
+//TESTING GEODB
+
+#include <iostream>
+#include "geodb.h"
+#include "geopoint.h"
+#include <cassert>
+using namespace std;
+
+int main() {
+    GeoDatabase gdb;
+
+    gdb.load("mapdata.txt");
+    
+    //TESTING GET POI LOCATION
+    GeoPoint poiLocation;
+    gdb.get_poi_location("Diddy Reese", poiLocation);
+    assert(poiLocation.latitude == 34.0630614 && poiLocation.longitude == -118.4468781);
+
+    gdb.get_poi_location("Fox Theater", poiLocation);
+    assert(poiLocation.latitude == 34.0626647 && poiLocation.longitude == -118.4472813);
+
+    gdb.get_poi_location("Mr. Noodle", poiLocation);
+    assert(poiLocation.latitude == 34.0629463 && poiLocation.longitude == -118.4468728);
+
+    gdb.get_poi_location("Ami Sushi", poiLocation);
+    assert(poiLocation.latitude == 34.0614911 && poiLocation.longitude == -118.4464410);
+
+    gdb.get_poi_location("Barney's Beanery", poiLocation);
+    assert(poiLocation.latitude == 34.0617224 && poiLocation.longitude == -118.4466561);
+
+    gdb.get_poi_location("Five Guys", poiLocation);
+    assert(poiLocation.latitude == 34.0613946 && poiLocation.longitude == -118.4463597);
+
+    gdb.get_poi_location("Regent", poiLocation);
+    assert(poiLocation.latitude == 34.0615961 && poiLocation.longitude == -118.4465521);
+
+
+    //TESTING GET CONNECTED POINTS
+
 }

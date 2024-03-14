@@ -7,7 +7,7 @@
 #include "geotools.h"
 #include "base_classes.h"
 #include "geopoint.h"
-#include "scaffoldhashmap.h"
+#include "HashMap.h"
 
 class GeoDatabase : public GeoDatabaseBase
 {

@@ -117,33 +117,6 @@ bool GeoDatabase::load(const std::string& map_data_file){
 				onStreet = true;
 			}
 		}
-		/*
-		//LINE P
-		if (numPois > 0 && (infile >> name >> startLat >> startLong)) {
-			GeoPoint poi(to_string(startLat), to_string(startLong)); //FIXME: is this allowable?
-			string poiString = poi.to_string();
-
-			//create bidirectional connection b/w midpoint and poi
-			m_connectedPoints[poiString].push_back(segmentMidpoint);
-			m_connectedPoints[segmentMidpointString].push_back(poi);
-
-			//remove | from the name
-
-			name = name.substr(0, name.length() - 1);
-
-			//associate poi with its name
-			m_pois.insert(name, poi);
-
-			//associate the street name with the poi and midpoint
-			m_segmentNames.insert(poiString + segmentMidpointString, "a path");
-
-			numPois--;
-			//processed all pois, so next line should be a street
-			if (numPois == 0) {
-				onStreet = true;
-			}
-		}
-		*/
 	}
 	return true;
 }

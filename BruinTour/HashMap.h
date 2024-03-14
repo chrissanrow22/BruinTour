@@ -1,4 +1,3 @@
-/*
 #include <string>
 #include <vector>
 #include <list>
@@ -127,7 +126,7 @@ T* HashMap<T>::find(const std::string& key) const {
 	int keyHashVal = hashItem(key, m_buckets.size());
 	Node* p = m_buckets[keyHashVal];
 	while (p != nullptr && p->m_key != key) {
-		p = p->next;
+		p = p->m_next;
 	}
 	// key was found
 	if (p != nullptr) {
@@ -139,6 +138,7 @@ T* HashMap<T>::find(const std::string& key) const {
 
 template <typename T>
 T& HashMap<T>::operator[](const std::string& key) {
+	/*
 	int keyHashVal = hashItem(key, m_buckets.size());
 
 	//if no association is already made with that hash value:
@@ -183,7 +183,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 	}
 	
 	return p->m_value;
-
+	*/
 	//CORRECT VERSION
 
 	T* val = find(key);
@@ -191,7 +191,7 @@ T& HashMap<T>::operator[](const std::string& key) {
 		insert(key, T());
 		val = find(key);
 	}
-	return val;
+	return *val;
 }
 
 //HELPER FUNCTIONS
@@ -269,4 +269,3 @@ void HashMap<T>::rehashToNewHashMap() {
 	//set m_buckets to newly created hashmap
 	m_buckets = newInternalHashMap;
 }
-*/

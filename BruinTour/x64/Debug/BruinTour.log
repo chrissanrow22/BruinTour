@@ -1,3 +1,32 @@
-﻿  main.cpp
+﻿  geodb.cpp
 C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\stops.h(32,45): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(81,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(80,65): message : while compiling class template member function 'void HashMap<GeoPoint>::insert(const std::string &,const T &)'
+          with
+          [
+              T=GeoPoint
+          ]
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.cpp(108,19): message : see the first reference to 'HashMap<GeoPoint>::insert' in 'GeoDatabase::load'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.h(22,20): message : see reference to class template instantiation 'HashMap<GeoPoint>' being compiled
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(126,47): warning C4267: 'argument': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(125,51): message : while compiling class template member function 'T *HashMap<T>::find(const std::string &) const'
+          with
+          [
+              T=GeoPoint
+          ]
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.cpp(125,2): message : see the first reference to 'HashMap<GeoPoint>::find' in 'GeoDatabase::get_poi_location'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(201,35): warning C4267: 'initializing': conversion from 'size_t' to 'unsigned int', possible loss of data
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(200,47): message : while compiling class template member function 'bool HashMap<GeoPoint>::exceedsMaxLoadFactor(void) const'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(94,3): message : see the first reference to 'HashMap<GeoPoint>::exceedsMaxLoadFactor' in 'HashMap<GeoPoint>::insert'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.cpp(108,19): message : see the first reference to 'HashMap<GeoPoint>::insert' in 'GeoDatabase::load'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(60,2): message : while compiling class template member function 'HashMap<GeoPoint>::HashMap(double)'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.cpp(4,28): message : see the first reference to 'HashMap<GeoPoint>::HashMap' in 'GeoDatabase::GeoDatabase'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(212,14): warning C4267: 'initializing': conversion from 'size_t' to 'int', possible loss of data
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(211,39): message : while compiling class template member function 'void HashMap<GeoPoint>::rehashToNewHashMap(void)'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\HashMap.h(95,22): message : see the first reference to 'HashMap<GeoPoint>::rehashToNewHashMap' in 'HashMap<GeoPoint>::insert'
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\geodb.cpp(108,19): message : see the first reference to 'HashMap<GeoPoint>::insert' in 'GeoDatabase::load'
+  main.cpp
+C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\stops.h(32,45): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  router.cpp
+  Generating Code...
   BruinTour.vcxproj -> C:\Users\chris\OneDrive\Desktop\cs32\project-4\BruinTour\x64\Debug\BruinTour.exe

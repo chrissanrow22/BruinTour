@@ -126,7 +126,6 @@ int main() {
     testHashMap.insert("MG1", 46);
     testHashMap.insert("IonicFunk", 434);
 }
-*/
 
 //TESTING GEODB
 
@@ -203,5 +202,31 @@ int main() {
     assert(gdb.get_street_name(p1, p2) == "Kinross Avenue");
     assert(gdb.get_street_name(p2, p1) == "Kinross Avenue");
 }
+*/
 
 //TESTING ROUTE
+
+#include <iostream>
+#include <cassert>
+#include "router.h"
+#include "geodb.h"
+using namespace std;
+
+void printVector(vector<GeoPoint> vec) {
+    for (int i = 0; i < vec.size(); i++) {
+        cout << vec[i].to_string() << endl;
+    }
+}
+
+int main() {
+    GeoDatabase gdb;
+
+    gdb.load("mapdata.txt");
+
+    Router routerObj(gdb);
+    GeoPoint start("34.0625329", "-118.4470263");
+    GeoPoint end("34.0685657", "-118.4489289");
+
+    vector<GeoPoint> path = routerObj.route(start, end);
+    printVector(path);
+}

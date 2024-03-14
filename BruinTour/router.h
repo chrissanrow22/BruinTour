@@ -1,3 +1,6 @@
+#ifndef ROUTER_H
+#define ROUTER_H
+
 #include "base_classes.h"
 #include "HashMap.h"
 #include "geotools.h"
@@ -11,17 +14,16 @@ public:
 	virtual std::vector<GeoPoint> route(const GeoPoint& pt1, const GeoPoint& pt2) const;
 private:
 
-	double computePriority(int n, GeoPoint point, GeoPoint goal) const;
+	double heuristic(GeoPoint point, GeoPoint goal) const;
 
+	//struct to store GeoPoint
 	struct PathNode {
-		PathNode(GeoPoint curr, GeoPoint prev, double priority) {
+		PathNode(GeoPoint curr, double priority) {
 			m_curr = curr;
-			m_prev = prev;
-			priorityVal = priority;
+			m_priority = priority;
 		}
 		GeoPoint m_curr;
-		GeoPoint m_prev;
-		double priorityVal;
+		double m_priority;
 	};
 	
 	//pathnode comparison operator for prio queue
@@ -30,12 +32,11 @@ private:
 	public:
 		bool operator() (PathNode a, PathNode b)
 		{
-			return a.priorityVal < b.priorityVal;
+			return a.m_priority < b.m_priority;
 		}
 	};
 
-	HashMap<GeoPoint> locationOfPreviousWayPoint;
-	std::priority_queue<PathNode, vector<PathNode>, Compare> priorityQueue;
-
 	const GeoDatabaseBase& m_gdb;
 };
+
+#endif // !ROUTER_H

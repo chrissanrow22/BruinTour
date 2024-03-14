@@ -1,3 +1,6 @@
+#ifndef GEODB_H
+#define GEODB_H
+
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -23,3 +26,5 @@ private:
 	HashMap<std::vector<GeoPoint>> m_connectedPoints;
 	HashMap<std::string> m_segmentNames;
 };
+
+#endif // !GEODB_H

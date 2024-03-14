@@ -136,14 +136,20 @@ int main() {
 #include <cassert>
 using namespace std;
 
+void printVector(vector<GeoPoint> vec) {
+    for (int i = 0; i < vec.size(); i++) {
+        cout << vec[i].to_string() << endl;
+    }
+}
+
 int main() {
     GeoDatabase gdb;
 
     gdb.load("mapdata.txt");
-    
+
     //TESTING GET POI LOCATION
     GeoPoint poiLocation;
-    gdb.get_poi_location("Diddy Reese", poiLocation);
+    gdb.get_poi_location("Diddy Riese", poiLocation);
     assert(poiLocation.latitude == 34.0630614 && poiLocation.longitude == -118.4468781);
 
     gdb.get_poi_location("Fox Theater", poiLocation);
@@ -164,6 +170,36 @@ int main() {
     gdb.get_poi_location("Regent", poiLocation);
     assert(poiLocation.latitude == 34.0615961 && poiLocation.longitude == -118.4465521);
 
-
     //TESTING GET CONNECTED POINTS
+
+    vector<GeoPoint> connected;
+    connected = gdb.get_connected_points(GeoPoint("34.0736122", "-118.4927669"));
+    cout << "test case 1: " << endl;
+    printVector(connected);
+    
+    connected = gdb.get_connected_points(GeoPoint("34.0600768", "-118.4467216"));
+    cout << "test case 2: " << endl;
+    printVector(connected);
+
+    //TESTING GET STREET NAME
+
+    GeoPoint p1("34.0732851", "-118.4931016");
+    GeoPoint p2("34.0736122", "-118.4927669");
+    assert(gdb.get_street_name(p1, p2) == "Glenmere Way");
+    assert(gdb.get_street_name(p2, p1) == "Glenmere Way");
+
+    p1 = GeoPoint("34.0601422", "-118.4468929");
+    p2 = GeoPoint("34.0600768", "-118.4467216");
+    assert(gdb.get_street_name(p1, p2) == "a path");
+    assert(gdb.get_street_name(p2, p1) == "a path");
+
+    p1 = GeoPoint("34.0601422", "-118.4468929");
+    p2 = GeoPoint("34.0600768", "-118.4467216");
+    assert(gdb.get_street_name(p1, p2) == "a path");
+    assert(gdb.get_street_name(p2, p1) == "a path");
+
+    p1 = GeoPoint("34.0602175", "-118.4464952");
+    p2 = GeoPoint("34.0600768", "-118.4467216");
+    assert(gdb.get_street_name(p1, p2) == "Kinross Avenue");
+    assert(gdb.get_street_name(p2, p1) == "Kinross Avenue");
 }

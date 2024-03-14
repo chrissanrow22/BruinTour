@@ -1,6 +1,7 @@
 #include "base_classes.h"
 #include "scaffoldhashmap.h"
-#include <vector>
+#include "geotools.h"
+#include <queue>
 
 class Router : public RouterBase {
 public:
@@ -9,15 +10,18 @@ public:
 	virtual std::vector<GeoPoint> route(const GeoPoint& pt1, const GeoPoint& pt2) const;
 private:
 	struct PathNode {
-		GeoPoint point;
-		int priorityVal;
+		GeoPoint m_curr;
+		GeoPoint m_prev;
+		double priorityVal;
+		bool operator<(const PathNode& other) {
+			return this->priorityVal < other.priorityVal;
+		}
 	};
 
-	int computePriority(int n, GeoPoint point, GeoPoint goal) const;
+	double computePriority(int n, GeoPoint point, GeoPoint goal) const;
 
 	HashMap<GeoPoint> locationOfPreviousWayPoint;
-	std::vector<PathNode> priorityqueue;
+	std::priority_queue<PathNode> priorityQueue;
 
-	void insertToQueue(PathNode node);
-	GeoPoint popQueueTop();
+	GeoDatabaseBase* m_gdb;
 };

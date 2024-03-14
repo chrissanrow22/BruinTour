@@ -131,7 +131,7 @@ T* HashMap<T>::find(const std::string& key) const {
 	}
 	// key was found
 	if (p != nullptr) {
-		return p->m_value;
+		return &p->m_value;
 	}
 	// key was not found
 	return nullptr;

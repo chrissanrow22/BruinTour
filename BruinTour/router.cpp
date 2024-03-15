@@ -39,31 +39,32 @@ vector<GeoPoint> Router::route(const GeoPoint& pt1, const GeoPoint& pt2) const {
 		priorityQueue.pop();
 
 		//reached the end
-		if (currNode.m_curr.to_string() == pt2.to_string()) {
+		if (currNode.m_point.to_string() == pt2.to_string()) {
 			break;
 		}
 
-		for (GeoPoint next : m_gdb.get_connected_points(currNode.m_curr)) {
-			string nextString = next.to_string();
+		for (GeoPoint next : m_gdb.get_connected_points(currNode.m_point)) {
 			//compute the priority for the new node
 			//compute the new f cost
-			double fCost = fCosts[currNode.m_curr.to_string()] + distance_earth_km(currNode.m_curr, next);
-			//compute heuristic value
-			double hCost = heuristic(next, pt2);
-			double newPriority = fCost + hCost;
-
-			//construct a node representing this new node and its associated priority
-			PathNode nextNode(next, newPriority);
+			double fCost = fCosts[currNode.m_point.to_string()] + distance_earth_km(currNode.m_point, next);
+			
 			
 			//only process this node if it hasn't already been processed or if its new fCost is lower
 			//(i.e.) there is a shorter way to reach it
 			if (fCosts.find(next.to_string()) == nullptr || fCost < fCosts[next.to_string()]) {
 				//update/insert fcost
 				fCosts[next.to_string()] = fCost;
+ 
+			//compute heuristic value
+			double hCost = heuristic(next, pt2);
+			double newPriority = fCost + hCost;
+
+			//construct a node representing this new node and its associated priority
+			PathNode nextNode(next, newPriority);
 				//push the new node to priority queue
 				priorityQueue.push(nextNode);
 				//update/insert where the new node came from
-				locationOfPreviousWayPoint[nextString] = currNode.m_curr;
+				locationOfPreviousWayPoint[next.to_string()] = currNode.m_point;
 			}
 		}
 	}

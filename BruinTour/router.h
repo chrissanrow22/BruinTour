@@ -6,6 +6,7 @@
 #include "geotools.h"
 #include <queue>
 #include <vector>
+#include <algorithm>
 
 class Router : public RouterBase {
 public:
@@ -19,10 +20,10 @@ private:
 	//struct to store GeoPoint
 	struct PathNode {
 		PathNode(GeoPoint curr, double priority) {
-			m_curr = curr;
+			m_point = curr;
 			m_priority = priority;
 		}
-		GeoPoint m_curr;
+		GeoPoint m_point;
 		double m_priority;
 	};
 	
@@ -32,7 +33,7 @@ private:
 	public:
 		bool operator() (PathNode a, PathNode b)
 		{
-			return a.m_priority < b.m_priority;
+			return a.m_priority > b.m_priority;
 		}
 	};
 

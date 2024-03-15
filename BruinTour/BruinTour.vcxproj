@@ -132,6 +132,7 @@
     <ClInclude Include="geopoint.h" />
     <ClInclude Include="geotools.h" />
     <ClInclude Include="HashMap.h" />
+    <ClInclude Include="support.h" />
     <ClInclude Include="router.h" />
     <ClInclude Include="scaffoldhashmap.h" />
     <ClInclude Include="stops.h" />
